@@ -1,4 +1,4 @@
-package FruitMachine;  
+package dddubrico;  
 
 import javax.swing.JOptionPane;  
 
@@ -25,6 +25,11 @@ public class Main {
 
             // Show options and get user selection  
             String input = JOptionPane.showInputDialog(menu.toString());  
+            if (input == null) { // Check for cancel action  
+                JOptionPane.showMessageDialog(null, "Thank you for using the Fruit Juice Machine! Goodbye!");  
+                break; // Exit the loop and terminate the program  
+            }  
+
             int choice;  
 
             try {  
@@ -42,6 +47,9 @@ public class Main {
 
                 // Get the quantity of the selected juice  
                 String quantityInput = JOptionPane.showInputDialog(String.format("How many %s would you like to order? (Available: %d)", juiceNames[choice - 1], juiceStocks[choice - 1]));  
+                if (quantityInput == null) { // Check for cancel action  
+                    continue; // Go back to the main menu  
+                }  
                 int quantity = Integer.parseInt(quantityInput);  
 
                 // Check if the quantity is available  
@@ -52,6 +60,9 @@ public class Main {
 
                 double totalPrice = juicePrices[choice - 1] * quantity; // Calculate total price  
                 String insertedCashString = JOptionPane.showInputDialog(String.format("The total price is $%.2f. Please insert cash in dollars: ", totalPrice));  
+                if (insertedCashString == null) { // Check for cancel action  
+                    continue; // Go back to the main menu  
+                }  
                 double insertedCash = Double.parseDouble(insertedCashString);  
 
                 // Check if enough cash was inserted  
@@ -61,8 +72,7 @@ public class Main {
                     // Check if the register can give the change  
                     if (!cashRegister.canGiveChange(change)) {  
                         JOptionPane.showMessageDialog(null, "Register has insufficient change. Please input lower amount or exact amount.");  
-                        // Transaction cancelled, no need to accept cash  
-                        continue;  
+                        continue; // Transaction cancelled, no need to accept cash  
                     } else {  
                         cashRegister.makeSale(totalPrice); // Make sale and update cash register  
                         String successMessage = String.format("========================================\n" +  
