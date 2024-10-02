@@ -1,4 +1,4 @@
-package FruitMachine;
+package dddubrico;  
 
 public class Dispenser {  
     private int numberOfItems;  
