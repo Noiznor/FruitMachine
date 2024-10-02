@@ -1,4 +1,4 @@
-package dddubrico;  
+package FruitMachine;  
 
 public class Register {  
     private double cashOnHand; // Cash on hand in dollars  
